@@ -14,10 +14,18 @@ defmodule CallendlexWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", CallendlexWeb do
-    pipe_through :browser
+  # scope "/", CallendlexWeb do
+  #   pipe_through :browser
 
-    get "/", PageController, :index
+  #   live "/", PageLive
+  # end
+
+  live_session :public, on_mount: CallendlexWeb.Live.InitAssigns do
+    scope "/", CallendlexWeb do
+      pipe_through :browser
+
+      live "/", PageLive
+    end
   end
 
   # Other scopes may use custom stacks.
